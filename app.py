@@ -85,6 +85,8 @@ def generate_story(character, theme, plot_point, page_count):
     說明一個{character}的故事，
     並注意在倒數第三頁加入{plot_point}的元素，
     最後的故事需要是溫馨、快樂的結局。
+    請在故事中文文字的後面用括號( )顯示英文版說明。例如
+    小貓咪遇見好朋友(Little cat meet good friend).
     """
     response = client.chat.completions.create(
         model="gpt-4o-mini",
