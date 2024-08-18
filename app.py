@@ -98,6 +98,8 @@ def generate_paged_story(story, page_count, character, theme, plot_point):
     將以下故事大綱細分至預計{page_count}個跨頁的篇幅，每頁需要包括(text，image_prompt)，
     {page_count-3}(倒數第三頁)才可以出現{plot_point}，
     在這之前應該要讓{character}的{theme}世界發展故事更多元化。
+    每一頁的text的部分，請在後面用括號( )顯示英文版說明。例如
+    小貓咪遇見好朋友(Little cat meet good friend).
     請以JSON格式回覆，格式如下：
     [
         {{"text": "第一頁的文字", "image_prompt": "第一頁的圖像提示"}},
@@ -105,7 +107,7 @@ def generate_paged_story(story, page_count, character, theme, plot_point):
         ...
     ]
 
-    故事：
+    故事(Story)：
     {story}
     """
     response = client.chat.completions.create(
@@ -166,13 +168,13 @@ if st.button("生成繪本(Generate PaintBook)"):
     try:
         with st.spinner("正在生成故事..."):
             story = generate_story(character, theme, plot_point, page_count)
-            st.write("故事大綱：", story)
+            st.write("故事大綱(Story outline)：", story)
 
-        with st.spinner("正在分頁故事..."):
+        with st.spinner("正在分頁故事(Story paging)..."):
             paged_story = generate_paged_story(story, page_count, character, theme, plot_point)
             #st.write("分頁故事（原始）：", paged_story)
 
-        with st.spinner("正在生成風格基礎..."):
+        with st.spinner("正在生成風格基礎(Image Style)..."):
             style_base = generate_style_base(story)
             #st.write("風格基礎：", style_base)
 
@@ -190,9 +192,9 @@ if st.button("生成繪本(Generate PaintBook)"):
         st.success(f"成功解析 JSON。共有 {len(pages)} 頁。")
 
         for i, page in enumerate(pages, 1):
-            st.write(f"第 {i} 頁(page)")
+            st.write(f"第 {i} 頁(page {i} )")
             st.write("文字：", page.get('text', '無文字'))
-            with st.spinner(f"正在生成第 {i} 頁的圖片(page)..."):
+            with st.spinner(f"正在生成第 {i} 頁的圖片(page {i} )..."):
                 image_prompt = page.get('image_prompt', '')
                 if image_prompt:
                     image_url = generate_image(image_prompt, style_base)
