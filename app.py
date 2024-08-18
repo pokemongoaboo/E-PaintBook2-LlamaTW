@@ -38,10 +38,11 @@ def generate_plot_points(character, theme):
     prompt = f"""為一個關於{character}的{theme}故事生成3到5個可能的故事轉折重點。
     每個重點應該簡短而有趣。
     請直接列出轉折重點，每個轉折點佔一行，不要加入額外的說明或編號。
+    在後面用括號( )顯示英文版說明。
     例如：
-    主角遇到一個神秘的陌生人
-    意外發現一個魔法物品
-    朋友陷入危險需要救援
+    主角遇到一個神秘的陌生人(Meet a stranger)
+    意外發現一個魔法物品(Find a magic item)
+    朋友陷入危險需要救援(Friend needs help)
     """
     response = client.chat.completions.create(
         model="gpt-4o-mini",
