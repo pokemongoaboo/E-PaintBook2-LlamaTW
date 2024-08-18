@@ -11,27 +11,27 @@ import re
 client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
 # 主角選項
-characters = ["貓咪", "狗狗", "花花", "小鳥", "小石頭"]
+characters = ["貓咪(Cat)", "狗狗(Dog)", "花花(Flower)", "小鳥(Bird)", "小石頭(Stone)"]
 
 # 主題選項
-themes = ["親情", "友情", "冒險", "度假", "運動比賽"]
+themes = ["親情(Family)", "友情(Friends)", "冒險(Adventure)", "度假(vacation)", "運動比賽(Sport)"]
 
 # 頁面設置
-st.set_page_config(page_title="互動式繪本生成器", layout="wide")
-st.title("互動式繪本生成器")
+st.set_page_config(page_title="互動式繪本生成器(PaintBook Generator)", layout="wide")
+st.title("互動式繪本生成器(PaintBook Generator)")
 
 # 選擇或輸入主角
-character = st.selectbox("選擇或輸入繪本主角:", characters + ["其他"])
+character = st.selectbox("選擇或輸入繪本主角(Story Characters):", characters + ["其他"])
 if character == "其他":
     character = st.text_input("請輸入自定義主角:")
 
 # 選擇或輸入主題
-theme = st.selectbox("選擇或輸入繪本主題:", themes + ["其他"])
+theme = st.selectbox("選擇或輸入繪本主題(Story Themes):", themes + ["其他"])
 if theme == "其他":
     theme = st.text_input("請輸入自定義主題:")
 
 # 選擇頁數
-page_count = st.slider("選擇繪本頁數:", min_value=6, max_value=12, value=8)
+page_count = st.slider("選擇繪本頁數(Story Pages):", min_value=6, max_value=12, value=8)
 
 
 def generate_plot_points(character, theme):
@@ -60,7 +60,7 @@ def generate_plot_points(character, theme):
     return plot_points
 
 # 生成並選擇故事轉折重點
-if st.button("生成故事轉折重點選項"):
+if st.button("生成故事轉折重點選項(Story turning point)"):
     plot_points = generate_plot_points(character, theme)
     if plot_points:
         st.session_state.plot_points = plot_points
@@ -68,7 +68,7 @@ if st.button("生成故事轉折重點選項"):
         st.error("未能生成有效的轉折重點。請重試。")
 
 if 'plot_points' in st.session_state:
-    plot_point = st.selectbox("選擇或輸入繪本故事轉折重點:", 
+    plot_point = st.selectbox("選擇或輸入繪本故事轉折重點(Choose one turning point):", 
                               ["請選擇"] + st.session_state.plot_points + ["其他"])
     if plot_point == "其他":
         plot_point = st.text_input("請輸入自定義故事轉折重點:")
@@ -161,7 +161,7 @@ def preprocess_json(json_string):
     return json_string
 
 # 主要生成流程
-if st.button("生成繪本"):
+if st.button("生成繪本(Generate PaintBook"):
     try:
         with st.spinner("正在生成故事..."):
             story = generate_story(character, theme, plot_point, page_count)
