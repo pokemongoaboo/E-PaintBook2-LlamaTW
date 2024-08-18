@@ -161,7 +161,7 @@ def preprocess_json(json_string):
     return json_string
 
 # 主要生成流程
-if st.button("生成繪本(Generate PaintBook"):
+if st.button("生成繪本(Generate PaintBook)"):
     try:
         with st.spinner("正在生成故事..."):
             story = generate_story(character, theme, plot_point, page_count)
@@ -189,9 +189,9 @@ if st.button("生成繪本(Generate PaintBook"):
         st.success(f"成功解析 JSON。共有 {len(pages)} 頁。")
 
         for i, page in enumerate(pages, 1):
-            st.write(f"第 {i} 頁")
+            st.write(f"第 {i} 頁(page)")
             st.write("文字：", page.get('text', '無文字'))
-            with st.spinner(f"正在生成第 {i} 頁的圖片..."):
+            with st.spinner(f"正在生成第 {i} 頁的圖片(page)..."):
                 image_prompt = page.get('image_prompt', '')
                 if image_prompt:
                     image_url = generate_image(image_prompt, style_base)
